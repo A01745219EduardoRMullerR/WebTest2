@@ -17,4 +17,5 @@ const CitySchema = mongoose.Schema({
     interes: Number
 },{collection:'Cities'})
 
-module.exports = mongoose.model('Cities', CitySchema)
+const City = mongoose.model('Cities', CitySchema)
+module.exports = City
