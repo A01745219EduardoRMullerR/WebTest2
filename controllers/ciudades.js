@@ -1,8 +1,8 @@
-const Ciudades = require("../models/ciudades")
+const CitySchema = require("../models/ciudades")
 const mongoose = require("mongoose")
 
 exports.postAgregarCiudad = async (req,res)=>{
-    const ciudades = new Ciudades(req.body)
+    const ciudades = new CitySchema(req.body)
     ciudades._id = new mongoose.Types.ObjectId()
     try{
         await ciudades.save()
@@ -16,14 +16,14 @@ exports.postAgregarCiudad = async (req,res)=>{
 }
 
 exports.getObtenerCiudades=async (req,res)=>{
-    const city = await Ciudades.find()
+    const city = await CitySchema.find()
     console.log(city)
     res.json(city)
 }
 
 exports.postActualizarCiudades = async(req, res)=>{
     try{
-        await Ciudades.findOneAndUpdate(req.body.filtro,req.body.cambio)
+        await CitySchema.findOneAndUpdate(req.body.filtro,req.body.cambio)
         console.log("Cambio realizado")
         res.json({operacion: "correcta"})
     }catch(err){
@@ -33,7 +33,7 @@ exports.postActualizarCiudades = async(req, res)=>{
 }
 
 exports.postBorrarCiudad = async (req, res)=>{
-    await Ciudades.findByIdAndRemove(req.body)
+    await CitySchema.findByIdAndRemove(req.body)
     console.log("Ciudad eliminada")
     res.json({operacion: "correcta"})
 }

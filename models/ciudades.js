@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const CitySchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     nombre:{
@@ -9,10 +8,13 @@ const CitySchema = mongoose.Schema({
     },
     pais:{
         type:String,
-        required: false
+        required: true
+    },
+    tipo:{
+        type:String,
+        required:false
     },
     interes: Number
 },{collection:'Cities'})
 
-// Compile model from schema
-module.exports = mongoose.model('Cities', CitySchema )
+module.exports = mongoose.model('Cities', CitySchema)

@@ -7,7 +7,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use("/ciudades",ciudadesRoutes)
 
-mongoose.connect('mongodb://userX:root@54.198.161.35:27017/baseX?authSource=admin')
+mongoose.connect('mongodb://user10:root@54.198.161.35:27017/base10?authSource=admin')
     .then(()=>{
         app.listen(8081,()=>console.log("Servidor en línea"))
     })
