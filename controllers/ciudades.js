@@ -6,17 +6,21 @@ exports.postAgregarCiudad = async (req,res)=>{
     const reqName = newCity.nombre
     newCity._id = new mongoose.Types.ObjectId()
     try{
-        const interest = CitySchema.find({"nombre": reqName})
-        console.log(interest)
-        CitySchema.findOneAndUpdate({"nombre": reqName}, {"interes": +1})
-        console.log("Ciudad " + reqName +  " no resistrada" + '\nRegistro ya encontrado')
-        res.send({operacion:"Registro ya encontrado"})
-
+        await CitySchema.update({"nombre": reqName}, {$inc: {"interes": 1}})
     }catch(err){
+        console.log(err)
+        res.send({operacion: "error"})
+    }
+    try{
         await newCity.save()
-        //console.log(newCity)
+        console.log('newCity------------------------\n'+
+            newCity
+            +'\n---------------------------newCity')
         console.log("Ciudad " + reqName +  " registrada")
         res.send({operacion:"Registro nuevo"})
+    }catch(err){
+        console.log(err)
+        res.send({operacion: "error"})
     }
 }
 

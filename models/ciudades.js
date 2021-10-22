@@ -14,7 +14,11 @@ const CitySchema = mongoose.Schema({
         type:String,
         required:false
     },
-    interes: Number
+    interes: {
+        type: Number,
+        default: 0,
+        required: true
+    }
 },{collection:'Cities'})
 
 const City = mongoose.model('Cities', CitySchema)
