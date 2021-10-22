@@ -2,16 +2,21 @@ const CitySchema = require("../models/ciudades")
 const mongoose = require("mongoose")
 
 exports.postAgregarCiudad = async (req,res)=>{
-    const ciudades = new CitySchema(req.body)
-    ciudades._id = new mongoose.Types.ObjectId()
+    const newCity = new CitySchema(req.body)
+    const reqName = newCity.nombre
+    newCity._id = new mongoose.Types.ObjectId()
     try{
-        await ciudades.save()
-        console.log(ciudades)
-        console.log("Ciudad registrada")
-        res.send({operacion:"correcta"})
+        const interest = CitySchema.find({"nombre": reqName})
+        console.log(interest)
+        CitySchema.findOneAndUpdate({"nombre": reqName}, {"interes": +1})
+        console.log("Ciudad " + reqName +  " no resistrada" + '\nRegistro ya encontrado')
+        res.send({operacion:"Registro ya encontrado"})
+
     }catch(err){
-        console.log(err)
-        res.send({operacion: "incorrecta"})
+        await newCity.save()
+        //console.log(newCity)
+        console.log("Ciudad " + reqName +  " registrada")
+        res.send({operacion:"Registro nuevo"})
     }
 }
 
