@@ -5,15 +5,14 @@ exports.postAgregarCiudad = async (req,res)=>{
     const newCity = new CitySchema(req.body)
     const reqName = newCity.nombre
     newCity._id = new mongoose.Types.ObjectId()
-    CitySchema.deleteOne({"nombre": reqName})
     try{
-        CitySchema.updateOne({"nombre": reqName}, {$inc: {"interes": 2}})
+        await CitySchema.updateOne({"nombre": reqName}, {$inc: {"interes": 2}})
     }catch(err){
         console.log(err)
         res.send({operacion: "error"})
     }
     try{
-        await CitySchema.deleteOne({"nombre": reqName}, {"interes": {$ls: 1}})
+        await CitySchema.deleteOne({"nombre": reqName}, {"interes": {$eq: 0}})
     }catch(err){
         console.log(err)
         res.send({operacion: "error"})
